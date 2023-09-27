@@ -4,24 +4,26 @@ if (isset($_POST['btnsubmit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
 
-    // Kết nối đến cơ sở dữ liệu
+    print_r($_POST);
+
     $conn = new mysqli($host, $username, $password, $dbname);
 
-    // Kiểm tra kết nối
     if ($conn->connect_error) {
         die("Kết nối đến cơ sở dữ liệu thất bại: " . $conn->connect_error);
     }
 
-    // Chuẩn bị truy vấn SQL để chèn dữ liệu
-    $sql = "INSERT INTO `user` (`name`, `email`) VALUES('$name', '$email')";
+    $sql = "INSERT INTO `user` (`user`, `name`) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
 
-    // Thực hiện truy vấn SQL
-    if ($conn->query($sql) === TRUE) {
-        echo "Thêm dữ liệu thành công!";
+    if ($stmt) {
+        $stmt->bind_param("ss", $name, $email);
+        if ($stmt->execute()) {
+            echo "Thêm dữ liệu thành công!";
+        } else {
+            echo "Lỗi: " . $stmt->error;
+        }
+        $stmt->close();
     } else {
-        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+        echo "Lỗi trong việc chuẩn bị câu truy vấn: " . $conn->error;
     }
-
-    // Đóng kết nối cơ sở dữ liệu
-    $conn->close();
 }

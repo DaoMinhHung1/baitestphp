@@ -23,8 +23,8 @@ class Student extends Person
     }
 
     // Phương thức riêng của lớp Sinh viên
-    public function showcase1()
+    public function showcase1($name, $age, $major)
     {
-        echo "Xin chào, tôi là " . $this->name . " và tôi " . $this->getAge() . " tuổi và tôi học chuyên ngành " . $this->getMajor();
+        echo "Xin chào, tôi là " . $name . " và tôi " . $age . " tuổi và tôi học chuyên ngành " . $major;
     }
 }

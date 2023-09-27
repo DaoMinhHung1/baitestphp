@@ -34,8 +34,9 @@ class Person
         $this->age = $age;
     }
 
-    public function showcase($name)
+
+    public function showcase($name, $age)
     {
-        echo "Xin chào, tôi là " . $name . " và tôi " . $this->age . " tuổi.";
+        echo "Xin chào, tôi là " . $name . " và tôi " . $age . " tuổi.";
     }
 }
